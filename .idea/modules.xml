@@ -3,11 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ScriptEngine.iml" filepath="$PROJECT_DIR$/ScriptEngine.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ScriptEngine/ScriptEngine-ScriptEngine.iml" filepath="$PROJECT_DIR$/ScriptEngine/ScriptEngine-ScriptEngine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ScriptEngineCore/ScriptEngineCore.iml" filepath="$PROJECT_DIR$/../ScriptEngineCore/ScriptEngineCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../ScriptEngineCore/core_library/core_library.iml" filepath="$PROJECT_DIR$/../ScriptEngineCore/core_library/core_library.iml" />
       <module fileurl="file://$PROJECT_DIR$/engine_androlua+/engine_androlua+.iml" filepath="$PROJECT_DIR$/engine_androlua+/engine_androlua+.iml" />
       <module fileurl="file://$PROJECT_DIR$/engine_rhino/engine_rhino.iml" filepath="$PROJECT_DIR$/engine_rhino/engine_rhino.iml" />
       <module fileurl="file://$PROJECT_DIR$/engine_v8/engine_v8.iml" filepath="$PROJECT_DIR$/engine_v8/engine_v8.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
     </modules>
   </component>
 </project>
