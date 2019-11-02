@@ -24,31 +24,31 @@ class RhinoStringEvaler(engine: RhinoEngine) : StringEvaler<RhinoEngine>(engine)
 
     override fun evalStringString(code: String, scriptName: String?, lineNumber: Int, listener: OnExceptionListener): String? {
         return evalString(code, scriptName, lineNumber, listener)?.let {
-            Context.jsToJava(it, String::class.java) as? String?
+            engine.varBridge.toString(it)
         }
     }
 
     override fun evalIntegerString(code: String, scriptName: String?, lineNumber: Int, listener: OnExceptionListener): Int? {
         return evalString(code, scriptName, lineNumber, listener)?.let {
-            Context.jsToJava(it, Int::class.java) as? Int?
+            engine.varBridge.toInteger(it)
         }
     }
 
     override fun evalFloatString(code: String, scriptName: String?, lineNumber: Int, listener: OnExceptionListener): Float? {
         return evalDoubleString(code, scriptName, lineNumber, listener)?.let {
-            Context.jsToJava(it, Float::class.java) as? Float?
+            engine.varBridge.toFloat(it)
         }
     }
 
     override fun evalDoubleString(code: String, scriptName: String?, lineNumber: Int, listener: OnExceptionListener): Double? {
         return evalString(code, scriptName, lineNumber, listener)?.let {
-            Context.jsToJava(it, Double::class.java) as? Double?
+            engine.varBridge.toDouble(it)
         }
     }
 
     override fun evalBooleanString(code: String, scriptName: String?, lineNumber: Int, listener: OnExceptionListener): Boolean? {
         return evalString(code, scriptName, lineNumber, listener)?.let {
-            Context.jsToJava(it, Boolean::class.java) as? Boolean?
+            engine.varBridge.toBoolean(it)
         }
     }
 

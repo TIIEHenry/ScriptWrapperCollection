@@ -1,7 +1,6 @@
 package tiiehenry.script.rhino.bridge
 
-import org.mozilla.javascript.Context
-import org.mozilla.javascript.ScriptableObject
+import org.mozilla.javascript.*
 import tiiehenry.script.engine.bridge.VarBridge
 import tiiehenry.script.rhino.RhinoEngine
 
@@ -21,8 +20,12 @@ class RhinoVarBridge(engine: RhinoEngine) : VarBridge<RhinoVarBridge.Type, Rhino
         f.invoke(Context.jsToJava(getVar(value), clazz))
     }
 
-    fun javaToJS(value: String): Any? {
-        return Context.javaToJS(getVar(value), runtime)
+    fun jsToJava(value: Any, clazz: Class<*>): Any? {
+        return Context.jsToJava(value, clazz)
+    }
+
+    fun javaToJS(value: Any): Any? {
+        return Context.javaToJS(value, runtime)
     }
 
     fun javaToJS(value: String, f: (Any?) -> Unit) {
@@ -68,6 +71,9 @@ class RhinoVarBridge(engine: RhinoEngine) : VarBridge<RhinoVarBridge.Type, Rhino
     }
 
     override fun putVar(name: String, value: Any?) {
+        value?.let {
+            return runtime.put(name, runtime, javaToJS(it))
+        }
         runtime.put(name, runtime, value)
     }
 
@@ -89,6 +95,67 @@ class RhinoVarBridge(engine: RhinoEngine) : VarBridge<RhinoVarBridge.Type, Rhino
 
     override fun putDouble(name: String, value: Double) {
         putVar(name, value)
+    }
+
+
+    override fun toString(value: Any?): String {
+        if (value is String)
+            return value
+/*        val result= when (value) {
+            is String -> value
+            is NativeJavaObject -> value.getDefaultValue(String::class.java) as? String?
+            is NativeObject -> value.getDefaultValue(String::class.java) as? String?
+            else ->{
+                Context.toString(value)
+            }
+        }*/
+        value?.let {
+            return Context.toString(value)
+        }
+        return "null"
+    }
+
+    override fun toBoolean(value: Any?): Boolean {
+        if (value is Boolean)
+            return value
+        value?.let {
+            return Context.toBoolean(value)
+        }
+        return false
+    }
+
+    override fun toInteger(value: Any?): Int {
+        if (value is Int)
+            return value
+        value?.let {
+            return Context.toNumber(value).toInt()
+        }
+        return -1
+    }
+
+    override fun toFloat(value: Any?): Float {
+        if (value is Float)
+            return value
+        value?.let {
+            return Context.toNumber(value).toFloat()
+        }
+        return -1F
+    }
+
+    override fun toDouble(value: Any?): Double {
+        if (value is Double)
+            return value
+        value?.let {
+            return Context.toNumber(value)
+        }
+        return -1.0
+    }
+
+    fun toObject(value: Any?): Any? {
+        if (value is Scriptable) {
+            return Context.jsToJava(value, Any::class.java)
+        }
+        return value
     }
 
 }

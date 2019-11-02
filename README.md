@@ -28,6 +28,6 @@ RhinoEngine([ScriptContext<RhinoEngine>]).apply{
 
 Use Requirer:
 ```kotlin
-        Requirer.addFindPath(App.srcDir)
-        engine.requirer.require("main")
+Requirer.addFindPath(App.srcDir)
+engine.requirer.require("main")
 ```

@@ -11,7 +11,11 @@ class RhinoFuncBridge(engine: RhinoEngine) : FuncBridge<Function, RhinoEngine>(e
     override fun callFuncL(func: Function, listener: OnExceptionListener, vararg args: Any): Any? {
         var result: Any? = null
         try {
-            result = func.call(engine.context, engine.runtime, engine.runtime, args)
+            val newArgs = arrayOfNulls<Any?>(args.size)
+            for (i in args.indices) {
+                newArgs[i] = engine.varBridge.javaToJS(args[i])
+            }
+            result = func.call(engine.context, engine.runtime, engine.runtime, newArgs)
         } catch (e: Exception) {
             listener.onException(e)
         }
@@ -24,13 +28,13 @@ class RhinoFuncBridge(engine: RhinoEngine) : FuncBridge<Function, RhinoEngine>(e
 
     override fun callStringFuncL(func: Function, listener: OnExceptionListener, vararg args: Any): String? {
         return callFuncL(func, listener, args)?.let {
-            Context.jsToJava(it, String::class.java) as? String?
+            engine.varBridge.toString(it)
         }
     }
 
     override fun callIntegerFuncL(func: Function, listener: OnExceptionListener, vararg args: Any): Int? {
         return callFuncL(func, listener, args)?.let {
-            Context.jsToJava(it, Int::class.java) as? Int?
+            engine.varBridge.toInteger(it)
         }
     }
 
@@ -40,17 +44,15 @@ class RhinoFuncBridge(engine: RhinoEngine) : FuncBridge<Function, RhinoEngine>(e
 
     override fun callDoubleFuncL(func: Function, listener: OnExceptionListener, vararg args: Any): Double? {
         return callFuncL(func, listener, args)?.let {
-            Context.jsToJava(it, Double::class.java) as? Double?
+            engine.varBridge.toDouble(it)
         }
     }
 
     override fun callBooleanFuncL(func: Function, listener: OnExceptionListener, vararg args: Any): Boolean? {
         return callFuncL(func, listener, args)?.let {
-            Context.jsToJava(it, Boolean::class.java) as? Boolean?
+            engine.varBridge.toBoolean(it)
         }
     }
-
-    val runtime = engine.runtime
 
 
     fun getFunc(name: String): Function? {
