@@ -24,7 +24,7 @@ class RhinoVarBridge(engine: RhinoEngine) : VarBridge<RhinoVarBridge.Type, Rhino
         return Context.jsToJava(value, clazz)
     }
 
-    fun javaToJS(value: Any): Any? {
+    fun javaToJS(value: Any?): Any? {
         return Context.javaToJS(value, runtime)
     }
 

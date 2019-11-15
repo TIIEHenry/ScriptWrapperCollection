@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="file" />
-                <!--data  android:mimeType = "*/*"  /-->
+                <!--info  android:mimeType = "*/*"  /-->
                 <data android:host="*" />
                 <data android:pathPattern=".*\\.js" />
             </intent-filter>
@@ -94,7 +94,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="file" />
-                <!--data  android:mimeType = "*/*"  /-->
+                <!--info  android:mimeType = "*/*"  /-->
                 <data android:host="*" />
                 <data android:pathPattern=".*\\.js" />
             </intent-filter>

@@ -55,7 +55,6 @@ class RhinoEngine(scriptContext: ScriptContext<RhinoEngine>) : ScriptEngine(scri
         stringEvaler = RhinoStringEvaler(this)
         fileEvaler = RhinoFileEvaler(this)
         initVars()
-
     }
 
     fun initVars() {

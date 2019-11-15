@@ -6,13 +6,14 @@ import tiiehenry.script.rhino.RhinoEngine
 
 class RhinoRuntime(val engine: RhinoEngine) : ScriptableObject(), Registerable {
     override fun registerRuntime() {
-        engine.runtime.defineFunctionProperties(arrayOf(
+        defineFunctionProperties(arrayOf(
                 "require", "load",
                 "logi", "logd", "logw", "loge", "log",
                 "logri", "logrd", "logrw", "logre", "logr",
                 "printi", "printd", "printw", "printe", "printf", "print",
                 "printri", "printrd", "printrw", "printre", "printrf", "printr"
         ), RhinoRuntime::class.java, PERMANENT)
+
     }
 
     @JSFunction
