@@ -3,6 +3,7 @@ package tiiehenry.script.rhino
 import org.mozilla.javascript.Context
 import tiiehenry.script.engine.android.ScriptContext
 import tiiehenry.script.engine.framework.ScriptEngine
+import tiiehenry.script.rhino.android.RhinoDexLoader
 import tiiehenry.script.rhino.bridge.RhinoFuncBridge
 import tiiehenry.script.rhino.bridge.RhinoVarBridge
 import tiiehenry.script.rhino.eval.RhinoFileEvaler
@@ -12,6 +13,7 @@ import tiiehenry.script.rhino.internal.RhinoLogger
 import tiiehenry.script.rhino.internal.RhinoPrinter
 import tiiehenry.script.rhino.internal.RhinoRequirer
 import tiiehenry.script.rhino.internal.RhinoRuntime
+import java.io.File
 
 class RhinoEngine(scriptContext: ScriptContext<RhinoEngine>) : ScriptEngine(scriptContext) {
 
@@ -34,12 +36,19 @@ class RhinoEngine(scriptContext: ScriptContext<RhinoEngine>) : ScriptEngine(scri
 
     lateinit var runtime: RhinoRuntime
 
+    override lateinit var dexLoader: RhinoDexLoader
+
     override fun init(globalAlias: String) {
         runtime = RhinoRuntime(this)
+
+        dexLoader = RhinoDexLoader(scriptContext)
+
         context = Context.enter().apply {
             optimizationLevel = -1//dexclassloader needed
             languageVersion = Context.VERSION_ES6
-            applicationClassLoader = scriptContext.getContext().classLoader
+            applicationClassLoader = dexLoader
+
+            instructionObserverThreshold = 10000
         }
         context.initStandardObjects(runtime)
         runtime.registerRuntime()

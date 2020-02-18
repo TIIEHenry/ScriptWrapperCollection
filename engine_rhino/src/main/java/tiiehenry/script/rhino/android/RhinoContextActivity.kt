@@ -1,25 +1,28 @@
 package tiiehenry.script.rhino.android
 
 import android.app.Activity
-import tiiehenry.script.rhino.RhinoEngine
+import dalvik.system.DexClassLoader
+import org.mozilla.javascript.Context
+import org.mozilla.javascript.ContextFactory
 import tiiehenry.script.engine.android.ScriptContextActivity
-import android.widget.TextView
-import android.view.ViewGroup
-import android.widget.ScrollView
-import android.widget.LinearLayout.LayoutParams
-import android.R.layout
-import android.view.View
-import android.widget.LinearLayout
-import android.widget.ListView
 import tiiehenry.script.engine.android.ScriptDexClassLoader
+import tiiehenry.script.engine.android.ScriptDexLoader
+import tiiehenry.script.rhino.RhinoEngine
+import java.io.File
 
 
 interface RhinoContextActivity<T : Activity> : ScriptContextActivity<T, RhinoEngine> {
-    override fun loadDex(path: String): ScriptDexClassLoader? {
-        return super.loadDex(path).apply {
-            engine.context.applicationClassLoader=this
-        }
-    }
+//    override fun loadDex(path: String): ScriptDexClassLoader? {
+//        return (ContextFactory.getGlobal().applicationClassLoader as ScriptDexLoader).loadDexFile(File(path))
+////        return super.loadDex(path).apply {
+////            engine.context.applicationClassLoader=this
+////        }
+//    }
+
+//    override fun loadDexFile(file: File): ScriptDexClassLoader? {
+//        return (ContextFactory.getGlobal().applicationClassLoader as RhinoDexLoader).loadDexFile(file)
+//    }
+
     override fun onEngineInited() {
 
 
