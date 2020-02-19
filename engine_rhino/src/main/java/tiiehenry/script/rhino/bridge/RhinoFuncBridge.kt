@@ -1,7 +1,7 @@
 package tiiehenry.script.rhino.bridge
 
-import org.mozilla.javascript.Context
 import org.mozilla.javascript.Function
+import org.mozilla.javascript.RhinoException
 import tiiehenry.script.engine.bridge.FuncBridge
 import tiiehenry.script.engine.eval.OnExceptionListener
 import tiiehenry.script.rhino.RhinoEngine

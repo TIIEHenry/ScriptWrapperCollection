@@ -1,7 +1,10 @@
 package tiiehenry.script.rhino
 
 import org.mozilla.javascript.Context
+import org.mozilla.javascript.ContextFactory
+import org.mozilla.javascript.RhinoException
 import tiiehenry.script.engine.android.ScriptContext
+import tiiehenry.script.engine.eval.OnExceptionListener
 import tiiehenry.script.engine.framework.ScriptEngine
 import tiiehenry.script.rhino.android.RhinoDexLoader
 import tiiehenry.script.rhino.bridge.RhinoFuncBridge
@@ -9,10 +12,7 @@ import tiiehenry.script.rhino.bridge.RhinoVarBridge
 import tiiehenry.script.rhino.eval.RhinoFileEvaler
 import tiiehenry.script.rhino.eval.RhinoFuncEvaler
 import tiiehenry.script.rhino.eval.RhinoStringEvaler
-import tiiehenry.script.rhino.internal.RhinoLogger
-import tiiehenry.script.rhino.internal.RhinoPrinter
-import tiiehenry.script.rhino.internal.RhinoRequirer
-import tiiehenry.script.rhino.internal.RhinoRuntime
+import tiiehenry.script.rhino.internal.*
 import java.io.File
 
 class RhinoEngine(scriptContext: ScriptContext<RhinoEngine>) : ScriptEngine(scriptContext) {
@@ -38,6 +38,19 @@ class RhinoEngine(scriptContext: ScriptContext<RhinoEngine>) : ScriptEngine(scri
 
     override lateinit var dexLoader: RhinoDexLoader
 
+    override val onExceptionListener: OnExceptionListener = object : OnExceptionListener {
+        override fun onException(e: Exception) {
+            if (e is RhinoException) {
+                val ep = RhinoExceptionWrapped(e)
+                printer.printe(ep.message)
+                ep.printStackTrace()
+            } else {
+                printer.printe(e.message)
+                e.printStackTrace()
+            }
+        }
+    }
+
     override fun init(globalAlias: String) {
         runtime = RhinoRuntime(this)
 
@@ -46,10 +59,14 @@ class RhinoEngine(scriptContext: ScriptContext<RhinoEngine>) : ScriptEngine(scri
         context = Context.enter().apply {
             optimizationLevel = -1//dexclassloader needed
             languageVersion = Context.VERSION_ES6
-            applicationClassLoader = dexLoader
-
+            try {
+                applicationClassLoader = dexLoader
+            } catch (e: Exception) {
+            }
             instructionObserverThreshold = 10000
         }
+
+
         context.initStandardObjects(runtime)
         runtime.registerRuntime()
 
@@ -68,6 +85,14 @@ class RhinoEngine(scriptContext: ScriptContext<RhinoEngine>) : ScriptEngine(scri
 
     fun initVars() {
         varBridge.putVar("activity", scriptContext.getContext())
+    }
+
+    fun initGlobalClassloader() {
+        try {
+            ContextFactory.getGlobal().initApplicationClassLoader(dexLoader)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     override fun destory() {

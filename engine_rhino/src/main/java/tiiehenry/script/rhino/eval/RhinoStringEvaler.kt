@@ -1,6 +1,5 @@
 package tiiehenry.script.rhino.eval
 
-import org.mozilla.javascript.Context
 import tiiehenry.script.engine.eval.OnExceptionListener
 import tiiehenry.script.engine.eval.StringEvaler
 import tiiehenry.script.rhino.RhinoEngine
@@ -12,7 +11,7 @@ class RhinoStringEvaler(engine: RhinoEngine) : StringEvaler<RhinoEngine>(engine)
     override fun evalString(code: String, scriptName: String?, lineNumber: Int, listener: OnExceptionListener): Any? {
         try {
             return context.evaluateString(runtime, code, scriptName, 1, null)
-        } catch (e: Exception) {
+        }catch (e: Exception) {
             listener.onException(e)
         }
         return null

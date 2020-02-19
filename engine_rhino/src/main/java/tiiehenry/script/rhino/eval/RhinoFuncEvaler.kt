@@ -1,6 +1,5 @@
 package tiiehenry.script.rhino.eval
 
-import org.mozilla.javascript.Context
 import tiiehenry.script.engine.eval.FuncEvaler
 import tiiehenry.script.engine.eval.OnExceptionListener
 import tiiehenry.script.rhino.RhinoEngine
