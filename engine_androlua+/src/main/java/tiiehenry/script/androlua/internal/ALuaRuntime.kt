@@ -13,12 +13,12 @@ import tiiehenry.script.androlua.ALuaEngine
 import java.io.File
 import java.util.*
 
-class ALuaRuntime(val engine: ALuaEngine) : LuaStateFactory(), LuaContext, Registerable {
+class ALuaRuntime(val engine: ALuaEngine) : LuaStateFactory(), LuaContext {
 
     val L = newLuaState()
 
     init {
-        LuaEnhancer.dexedPath = engine.provider.odexDir
+        LuaEnhancer.dexedPath = engine.provider.getOdexDir()
         StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder().permitAll().build())
         L.apply {
             openLibs()
@@ -36,7 +36,7 @@ class ALuaRuntime(val engine: ALuaEngine) : LuaStateFactory(), LuaContext, Regis
 
     }
 
-    override fun registerRuntime() {
+    fun registerRuntime() {
         engine.printer.register("print")
 
         val set = object : JavaFunction(L) {
@@ -78,7 +78,7 @@ class ALuaRuntime(val engine: ALuaEngine) : LuaStateFactory(), LuaContext, Regis
     }
 
     override fun set(key: String, value: Any?) {
-        engine.varBridge.putVar(key, value)
+        engine.varBridge.set(key, value)
     }
 
     override fun getLuaLpath(): String {
@@ -94,7 +94,7 @@ class ALuaRuntime(val engine: ALuaEngine) : LuaStateFactory(), LuaContext, Regis
     }
 
     override fun doFile(path: String, vararg arg: Any?): Any? {
-        return engine.fileEvaler.evalFileForArgs(File(path), engine.onExceptionListener, arg)
+        return engine.fileEvaluator.eval(File(path))
     }
 
     override fun sendMsg(msg: String?) {
@@ -102,7 +102,7 @@ class ALuaRuntime(val engine: ALuaEngine) : LuaStateFactory(), LuaContext, Regis
     }
 
     override fun sendError(title: String, msg: Exception) {
-        engine.printer.printe(title+":"+msg.message)
+        engine.printer.print(title+":"+msg.message)
     }
 
     private val gclist = ArrayList<LuaGcable>()

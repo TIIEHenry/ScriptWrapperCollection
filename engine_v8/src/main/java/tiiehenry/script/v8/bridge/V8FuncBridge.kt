@@ -1,36 +1,23 @@
 package tiiehenry.script.v8.bridge
 
-import tiiehenry.script.engine.bridge.FuncBridge
-import tiiehenry.script.engine.eval.OnExceptionListener
+import com.eclipsesource.v8.V8Function
 import tiiehenry.script.v8.V8Engine
+import tiiehenry.script.v8.lang.V8Func
+import tiiehenry.script.v8.lang.V8Type
+import tiiehenry.script.wrapper.IScriptContext
+import tiiehenry.script.wrapper.engine.bridge.IFuncBridge
+import tiiehenry.script.wrapper.engine.lang.IFunction
+import java.util.*
 
-class V8FuncBridge (engine: V8Engine):FuncBridge<Any,V8Engine>(engine){
-    override fun callFuncL(func: Any, listener: OnExceptionListener, vararg args: Any): Any? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+class V8FuncBridge(private val engine: V8Engine, override val context: IScriptContext = engine.context) : IFuncBridge<V8Type> {
+
+    override fun get(name: String): IFunction<V8Type>? {
+        val func = engine.varBridge.get(name) as? V8Function ?: return null
+        return V8Func(engine, func)
     }
 
-    override fun callVoidFuncL(func: Any, listener: OnExceptionListener, vararg args: Any) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun callStringFuncL(func: Any, listener: OnExceptionListener, vararg args: Any): String? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun callIntegerFuncL(func: Any, listener: OnExceptionListener, vararg args: Any): Int? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun callFloatFuncL(func: Any, listener: OnExceptionListener, vararg args: Any): Float? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun callDoubleFuncL(func: Any, listener: OnExceptionListener, vararg args: Any): Double? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun callBooleanFuncL(func: Any, listener: OnExceptionListener, vararg args: Any): Boolean? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun set(name: String, function: IFunction<V8Type>?) {
+        engine.runtime.registerJavaMethod(function, "call", name, arrayOf(Any::class.java))
     }
 
 }

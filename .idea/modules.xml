@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ScriptEngine.iml" filepath="$PROJECT_DIR$/ScriptEngine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScriptEngine.iml" filepath="$PROJECT_DIR$/.idea/modules/ScriptEngine.iml" group="ScriptEngine" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1321456908/ScriptWrapper.iml" filepath="$PROJECT_DIR$/.idea/modules/1321456908/ScriptWrapper.iml" group="ScriptEngine/ScriptWrapper" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1448762430/core_library.iml" filepath="$PROJECT_DIR$/.idea/modules/1448762430/core_library.iml" group="ScriptEngine/ScriptWrapper/core_library" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/engine_androlua+/engine_androlua+.iml" filepath="$PROJECT_DIR$/.idea/modules/engine_androlua+/engine_androlua+.iml" group="ScriptEngine/engine_androlua+" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/engine_rhino/engine_rhino.iml" filepath="$PROJECT_DIR$/.idea/modules/engine_rhino/engine_rhino.iml" group="ScriptEngine/engine_rhino" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/engine_v8/engine_v8.iml" filepath="$PROJECT_DIR$/.idea/modules/engine_v8/engine_v8.iml" group="ScriptEngine/engine_v8" />
     </modules>
   </component>
 </project>

@@ -1,74 +1,52 @@
 package tiiehenry.script.v8
 
 import com.eclipsesource.v8.V8
-import com.eclipsesource.v8.V8Value
-import tiiehenry.script.engine.android.ScriptContext
-import tiiehenry.script.engine.framework.ScriptEngine
 import tiiehenry.script.v8.bridge.V8FuncBridge
 import tiiehenry.script.v8.bridge.V8VarBridge
-import tiiehenry.script.v8.eval.V8FileEvaler
-import tiiehenry.script.v8.eval.V8FuncEvaler
-import tiiehenry.script.v8.eval.V8StringEvaler
-import tiiehenry.script.v8.internal.V8Logger
+import tiiehenry.script.v8.eval.V8FileEvaluator
+import tiiehenry.script.v8.eval.V8ReaderEvaluator
+import tiiehenry.script.v8.eval.V8StringEvaluator
 import tiiehenry.script.v8.internal.V8Printer
 import tiiehenry.script.v8.internal.V8Requirer
+import tiiehenry.script.v8.lang.V8Type
+import tiiehenry.script.wrapper.IScriptContext
+import tiiehenry.script.wrapper.IScriptEngine
+import tiiehenry.script.wrapper.engine.bridge.IFuncBridge
+import tiiehenry.script.wrapper.engine.evaluate.IFileEvaluator
+import tiiehenry.script.wrapper.engine.evaluate.IStringEvaluator
 
-class V8Engine(scriptContext: ScriptContext<V8Engine>) : ScriptEngine(scriptContext) {
-
-    override val name: String = "V8"
+class V8Engine(override val context: IScriptContext) : IScriptEngine<Any, V8Type> {
+    override val funcBridge: IFuncBridge<V8Type> = V8FuncBridge(this)
+    override val varBridge = V8VarBridge(this)
+    override val stringEvaluator: IStringEvaluator<Any, V8Type> = V8StringEvaluator(this)
+    override val fileEvaluator: IFileEvaluator<Any, V8Type> = V8FileEvaluator(this)
+    override val readerEvaluator = V8ReaderEvaluator(this)
 
     lateinit var runtime: V8
 
+    lateinit var printer: V8Printer
 
-    override lateinit var logger: V8Logger
-    override lateinit var printer: V8Printer
+    lateinit var requirer: V8Requirer
 
-    override lateinit var funcBridge: V8FuncBridge
-    override lateinit var varBridge: V8VarBridge
 
-    override lateinit var funcEvaler: V8FuncEvaler
-    override lateinit var stringEvaler: V8StringEvaler
-    override lateinit var fileEvaler: V8FileEvaler
-
-    override lateinit var requirer: V8Requirer
-
-    override fun init(globalAlias: String) {
-        runtime = V8.createV8Runtime(globalAlias)
-        logger = V8Logger(this)
+    override fun create() {
+        runtime = V8.createV8Runtime()
         printer = V8Printer(this)
-
-        funcBridge = V8FuncBridge(this)
-        varBridge = V8VarBridge(this)
+        printer.registerRuntime()
 
         requirer = V8Requirer(this)
-        funcEvaler = V8FuncEvaler(this)
-        stringEvaler = V8StringEvaler(this)
-        fileEvaler = V8FileEvaler(this)
-        logger.registerRuntime()
-        printer.registerRuntime()
+        requirer.registerRuntime()
     }
 
+    override fun pause() {
 
-    override fun destory() {
+    }
+
+    override fun resume() {
+
+    }
+    override fun destroy() {
         runtime.release(false)
     }
 
-
-    fun checkType(o: Any?): Any? {
-        return when {
-            o == null -> null
-            o is Int -> o as Int
-            o is String -> o as String
-            o is Long -> o as Long
-            o is Float -> o as Float
-            o is Double -> o as Double
-            o is Boolean -> o as Boolean
-            o is V8Value -> o as V8Value
-
-            else -> {
-                null
-//                val  scriptName,lineNumber = V8Object(runtime)
-            }
-        }
-    }
 }

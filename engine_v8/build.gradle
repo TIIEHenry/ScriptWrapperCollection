@@ -17,12 +17,9 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50"
-    implementation "androidx.appcompat:appcompat:1.1.0"
-//    implementation "androidx.core:core-ktx:$corektx_version"
-//    implementation project(':tiiehenry-ktx')
-//    implementation 'com.lxj:androidktx:1.2.46-x'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.3.50"
+
     implementation 'com.eclipsesource.j2v8:j2v8:5.0.103@aar'
 
-    implementation project(':ScriptEngineCore:core_library')
+    implementation project(':ScriptWrapper:core_library')
 }

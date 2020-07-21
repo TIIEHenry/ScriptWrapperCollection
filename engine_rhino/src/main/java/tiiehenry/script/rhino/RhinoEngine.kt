@@ -2,101 +2,81 @@ package tiiehenry.script.rhino
 
 import org.mozilla.javascript.Context
 import org.mozilla.javascript.ContextFactory
-import org.mozilla.javascript.RhinoException
-import tiiehenry.script.engine.android.ScriptContext
-import tiiehenry.script.engine.eval.OnExceptionListener
-import tiiehenry.script.engine.framework.ScriptEngine
-import tiiehenry.script.rhino.android.RhinoDexLoader
 import tiiehenry.script.rhino.bridge.RhinoFuncBridge
 import tiiehenry.script.rhino.bridge.RhinoVarBridge
-import tiiehenry.script.rhino.eval.RhinoFileEvaler
-import tiiehenry.script.rhino.eval.RhinoFuncEvaler
-import tiiehenry.script.rhino.eval.RhinoStringEvaler
-import tiiehenry.script.rhino.internal.*
-import java.io.File
+import tiiehenry.script.rhino.eval.RhinoFileEvaluator
+import tiiehenry.script.rhino.eval.RhinoReaderEvaluator
+import tiiehenry.script.rhino.eval.RhinoStringEvaluator
+import tiiehenry.script.rhino.internal.RhinoInputEvaluateTask
+import tiiehenry.script.rhino.internal.RhinoPrinter
+import tiiehenry.script.rhino.internal.RhinoRequirer
+import tiiehenry.script.rhino.internal.RhinoRuntime
+import tiiehenry.script.rhino.lang.RhinoType
+import tiiehenry.script.wrapper.IScriptContext
+import tiiehenry.script.wrapper.IScriptEngine
+import tiiehenry.script.wrapper.engine.bridge.IFuncBridge
+import tiiehenry.script.wrapper.engine.evaluate.IFileEvaluator
+import tiiehenry.script.wrapper.engine.evaluate.IStringEvaluator
+import tiiehenry.script.wrapper.engine.internal.InputEvaluateTask
+import tiiehenry.script.wrapper.engine.internal.Printable
+import tiiehenry.script.wrapper.engine.internal.Requirable
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
-class RhinoEngine(scriptContext: ScriptContext<RhinoEngine>) : ScriptEngine(scriptContext) {
+class RhinoEngine(override val context: IScriptContext) : IScriptEngine<Any, RhinoType>
+        , Printable,Requirable {
 
+    override val varBridge = RhinoVarBridge(this)
+    override val funcBridge: IFuncBridge<RhinoType> = RhinoFuncBridge(this)
 
-    override val name: String = "Rhino"
-
-    lateinit var context: Context
-
-    override lateinit var logger: RhinoLogger
-    override lateinit var printer: RhinoPrinter
-
-    override lateinit var funcBridge: RhinoFuncBridge
-    override lateinit var varBridge: RhinoVarBridge
-
-    override lateinit var funcEvaler: RhinoFuncEvaler
-    override lateinit var stringEvaler: RhinoStringEvaler
-    override lateinit var fileEvaler: RhinoFileEvaler
-
-    override lateinit var requirer: RhinoRequirer
+    override val stringEvaluator: IStringEvaluator<Any, RhinoType> = RhinoStringEvaluator(this)
+    override val fileEvaluator: IFileEvaluator<Any, RhinoType> = RhinoFileEvaluator(this)
+    override val readerEvaluator = RhinoReaderEvaluator(this)
 
     lateinit var runtime: RhinoRuntime
 
-    override lateinit var dexLoader: RhinoDexLoader
+    override lateinit var printer: RhinoPrinter
 
-    override val onExceptionListener: OnExceptionListener = object : OnExceptionListener {
-        override fun onException(e: Exception) {
-            if (e is RhinoException) {
-                val ep = RhinoExceptionWrapped(e)
-                printer.printe(ep.message)
-                ep.printStackTrace()
-            } else {
-                printer.printe(e.message)
-                e.printStackTrace()
-            }
-        }
-    }
+    override lateinit var requirer: RhinoRequirer
 
-    override fun init(globalAlias: String) {
+    override fun create() {
         runtime = RhinoRuntime(this)
 
-        dexLoader = RhinoDexLoader(scriptContext)
-
-        context = Context.enter().apply {
-            optimizationLevel = -1//dexclassloader needed
-            languageVersion = Context.VERSION_ES6
-            try {
-                applicationClassLoader = dexLoader
-            } catch (e: Exception) {
-            }
-            instructionObserverThreshold = 10000
-        }
+        varBridge.setAll(context.bindings)
 
 
-        context.initStandardObjects(runtime)
-        runtime.registerRuntime()
-
-        logger = RhinoLogger(this)
         printer = RhinoPrinter(this)
-
-        funcBridge = RhinoFuncBridge(this)
-        varBridge = RhinoVarBridge(this)
+        printer.registerRuntime()
 
         requirer = RhinoRequirer(this)
-        funcEvaler = RhinoFuncEvaler(this)
-        stringEvaler = RhinoStringEvaler(this)
-        fileEvaler = RhinoFileEvaler(this)
-        initVars()
+        requirer.registerRuntime()
+
+        RhinoInputEvaluateTask(context.input,this).start()
     }
 
-    fun initVars() {
-        varBridge.putVar("activity", scriptContext.getContext())
+    override fun pause() {
     }
 
-    fun initGlobalClassloader() {
+    override fun resume() {
+    }
+
+    override fun destroy() {
         try {
-            ContextFactory.getGlobal().initApplicationClassLoader(dexLoader)
+            Context.exit()
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    override fun destory() {
-        Context.exit()
+    companion object {
+
+        fun initGlobalClassloader(classLoader: ClassLoader) {
+            try {
+                ContextFactory.getGlobal().initApplicationClassLoader(classLoader)
+            } catch (e: Exception) {
+//            e.printStackTrace()
+            }
+        }
     }
 
 }

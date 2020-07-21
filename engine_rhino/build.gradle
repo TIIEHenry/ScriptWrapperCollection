@@ -1,28 +1,12 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-android {
-    compileSdkVersion 29
-
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
-
-        consumerProguardFiles 'consumer-rules.pro'
-    }
-
-
-}
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.50"
-    implementation "androidx.appcompat:appcompat:1.1.0"
-//    implementation "androidx.core:core-ktx:$corektx_version"
-//    implementation project(':tiiehenry-ktx')
-//    implementation 'com.lxj:androidktx:1.2.46-x'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation project(':ScriptEngineCore:core_library')
+    implementation project(':ScriptWrapper:core_library')
 }
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"

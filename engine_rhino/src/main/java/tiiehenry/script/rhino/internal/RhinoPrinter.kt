@@ -1,11 +1,30 @@
 package tiiehenry.script.rhino.internal
 
-import tiiehenry.script.engine.bridge.VarBridge
-import tiiehenry.script.engine.internal.Printable
-import tiiehenry.script.engine.internal.Printer
+import org.mozilla.javascript.ScriptableObject
+import org.mozilla.javascript.annotations.JSFunction
 import tiiehenry.script.rhino.RhinoEngine
+import tiiehenry.script.rhino.lang.RhinoType
+import tiiehenry.script.rhino.lang.RhinoVariable
+import tiiehenry.script.wrapper.IScriptContext
+import tiiehenry.script.wrapper.engine.internal.IPrinter
 
-class RhinoPrinter(engine: RhinoEngine) : Printer<RhinoEngine>(engine) {
+class RhinoPrinter(override val engine: RhinoEngine, override val context: IScriptContext = engine.context) : IPrinter<Any, RhinoType> {
+    @JSFunction
+    override fun print(msg: Any?) {
+        msg?.let {
+            context.output.print(RhinoVariable(it).getString() ?: "null")
+        }
+    }
 
 
+    @JSFunction
+    override fun println(msg: Any?) {
+        super.println(msg)
+    }
+
+    fun registerRuntime() {
+        engine.runtime.defineFunctionProperties(arrayOf(
+                "print", "println"
+        ), RhinoPrinter::class.java, ScriptableObject.PERMANENT)
+    }
 }

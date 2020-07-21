@@ -5,7 +5,7 @@ include ':engine_v8',
         ':engine_androlua+'
 
 def flatMap = [
-        "ScriptEngineCore": [
+        "ScriptWrapper": [
                 'core_library',
         ],
 ]

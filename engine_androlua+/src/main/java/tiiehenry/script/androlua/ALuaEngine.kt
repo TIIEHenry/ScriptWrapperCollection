@@ -3,60 +3,64 @@ package tiiehenry.script.androlua
 import com.luajava.LuaState
 import tiiehenry.script.androlua.bridge.ALuaFuncBridge
 import tiiehenry.script.androlua.bridge.ALuaVarBridge
-import tiiehenry.script.androlua.eval.ALuaFileEvaler
-import tiiehenry.script.androlua.eval.ALuaFuncEvaler
-import tiiehenry.script.androlua.eval.ALuaStringEvaler
-import tiiehenry.script.androlua.framework.ALuaProvider
-import tiiehenry.script.androlua.internal.ALuaLogger
+import tiiehenry.script.androlua.eval.ALuaFileEvaluator
+import tiiehenry.script.androlua.eval.ALuaReaderEvaluator
+import tiiehenry.script.androlua.eval.ALuaStringEvaluator
+import tiiehenry.script.androlua.internal.ALuaProvider
 import tiiehenry.script.androlua.internal.ALuaPrinter
+import tiiehenry.script.androlua.internal.ALuaRequirer
 import tiiehenry.script.androlua.internal.ALuaRuntime
-import tiiehenry.script.engine.android.ScriptContext
-import tiiehenry.script.engine.framework.ScriptEngine
+import tiiehenry.script.androlua.lang.ALuaType
+import tiiehenry.script.wrapper.IScriptContext
+import tiiehenry.script.wrapper.IScriptEngine
+import tiiehenry.script.wrapper.engine.bridge.IFuncBridge
+import tiiehenry.script.wrapper.engine.evaluate.IFileEvaluator
+import tiiehenry.script.wrapper.engine.evaluate.IStringEvaluator
+import tiiehenry.script.wrapper.engine.internal.IRequirer
+import tiiehenry.script.wrapper.engine.internal.Printable
+import tiiehenry.script.wrapper.engine.internal.Requirable
 
-class ALuaEngine(scriptContext: ScriptContext<ALuaEngine>) : ScriptEngine(scriptContext) {
+class ALuaEngine(override val context: IScriptContext) : IScriptEngine<Any, ALuaType>
+        , Printable, Requirable {
 
+    override val varBridge = ALuaVarBridge(this)
+    override val funcBridge: IFuncBridge<ALuaType> = ALuaFuncBridge(this)
 
-    override val name: String = "Rhino"
+    override val stringEvaluator: IStringEvaluator<Any, ALuaType> = ALuaStringEvaluator(this)
+    override val fileEvaluator: IFileEvaluator<Any, ALuaType> = ALuaFileEvaluator(this)
+    override val readerEvaluator = ALuaReaderEvaluator(this)
 
-
-    override lateinit var logger: ALuaLogger
     override lateinit var printer: ALuaPrinter
-
-    override lateinit var funcBridge: ALuaFuncBridge
-    override lateinit var varBridge: ALuaVarBridge
-
-    override lateinit var funcEvaler: ALuaFuncEvaler
-    override lateinit var stringEvaler: ALuaStringEvaler
-    override lateinit var fileEvaler: ALuaFileEvaler
-
+    override lateinit var requirer: ALuaRequirer
 
     lateinit var runtime: ALuaRuntime
 
-    var provider: ALuaProvider= ALuaProvider(scriptContext)
+    lateinit var provider: ALuaProvider
+    fun setDirProvider(dirProvider: ALuaProvider) {
+        provider = dirProvider
+    }
 
-    override fun init(globalAlias: String) {
+    override fun create() {
         runtime = ALuaRuntime(this)
         runtime.registerRuntime()
 
 
-        logger = ALuaLogger(this)
         printer = ALuaPrinter(this)
+        requirer = ALuaRequirer(this)
 
-        funcBridge = ALuaFuncBridge(this)
-        varBridge = ALuaVarBridge(this)
-
-        funcEvaler = ALuaFuncEvaler(this)
-        stringEvaler = ALuaStringEvaler(this)
-        fileEvaler = ALuaFileEvaler(this)
         initVars()
-
     }
 
-    fun initVars() {
-        varBridge.putVar("engine", runtime)
+    private fun initVars() {
+        varBridge.set("engine", runtime)
     }
 
-    override fun destory() {
+    override fun pause() {
+    }
+
+    override fun resume() {
+    }
+    override fun destroy() {
         System.gc()
         runtime.L.gc(LuaState.LUA_GCCOLLECT, 1)
         runtime.L.close()

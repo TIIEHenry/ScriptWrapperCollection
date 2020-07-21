@@ -1,27 +1,47 @@
 package tiiehenry.script.v8.internal
 
-import tiiehenry.script.engine.internal.Printable
 import tiiehenry.script.v8.V8Engine
+import tiiehenry.script.v8.lang.V8Type
+import tiiehenry.script.v8.lang.V8Variable
+import tiiehenry.script.wrapper.IScriptContext
+import tiiehenry.script.wrapper.engine.lang.IFunction
+import tiiehenry.script.wrapper.engine.internal.IPrinter
+import tiiehenry.script.wrapper.engine.lang.IVariable
 
-class V8Printer(override val engine: V8Engine) : Printable<V8Engine>, Registerable {
-    override val logTag: String = engine.name
+class V8Printer(override val engine: V8Engine, override val context: IScriptContext = engine.context) : IPrinter<Any, V8Type> {
 
-    override fun registerRuntime() {
-        registerJavaMethod("printi", Any::class.java)
-        registerJavaMethod("printd", Any::class.java)
-        registerJavaMethod("printw", Any::class.java)
-        registerJavaMethod("printe", Any::class.java)
-        registerJavaMethod("printf", Any::class.java)
-        registerJavaMethod("print", Any::class.java)
-
-        registerJavaMethod("printri", Int::class.java)
-        registerJavaMethod("printrd", Int::class.java)
-        registerJavaMethod("printrw", Int::class.java)
-        registerJavaMethod("printre", Int::class.java)
-        registerJavaMethod("printrf", Int::class.java)
-        registerJavaMethod("printr", Int::class.java)
+    override fun print(msg: Any?) {
+        msg?.let {
+            context.output.print(V8Variable(it).getString() ?: "null")
+        }
     }
-    fun registerJavaMethod(name: String,vararg parameterTypes: Class<*>) {
+
+    fun registerRuntime() {
+        engine.funcBridge.set("print",object :IFunction<V8Type>{
+            override fun call(vararg args: Any): IVariable<*, V8Type>? {
+                if (args.isNotEmpty()) {
+                    print(args.first())
+                }else{
+                    print(args)
+                }
+                return null
+            }
+        })
+        engine.funcBridge.set("println",object :IFunction<V8Type>{
+            override fun call(vararg args: Any): IVariable<*, V8Type>? {
+                if (args.isNotEmpty()) {
+                    print(args.first())
+                }else{
+                    print(args)
+                }
+                return null
+            }
+        })
+//        registerJavaMethod("print",Any::class.java)
+//        registerJavaMethod("println",Any::class.java)
+    }
+
+    private fun registerJavaMethod(name: String, vararg parameterTypes: Class<*>) {
         engine.runtime.registerJavaMethod(this, name, name, parameterTypes)
     }
 }

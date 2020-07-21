@@ -3,14 +3,14 @@ package tiiehenry.script.androlua.internal
 import com.luajava.JavaFunction
 import com.luajava.LuaException
 import tiiehenry.script.androlua.ALuaEngine
-import tiiehenry.script.engine.internal.Printable
+import tiiehenry.script.androlua.lang.ALuaType
+import tiiehenry.script.wrapper.IScriptContext
+import tiiehenry.script.wrapper.engine.internal.IPrinter
 
-class ALuaPrinter(override val engine: ALuaEngine) :JavaFunction(engine.runtime.L), Printable<ALuaEngine> {
-
-    override val logTag: String = engine.name
+class ALuaPrinter(override val engine: ALuaEngine, override val context: IScriptContext=engine.context) :
+        JavaFunction(engine.runtime.L), IPrinter<Any, ALuaType> {
 
     private val output = StringBuilder()
-
 
     @Throws(LuaException::class)
     override fun execute(): Int {
@@ -40,6 +40,12 @@ class ALuaPrinter(override val engine: ALuaEngine) :JavaFunction(engine.runtime.
         print(output.toString().substring(1, output.length - 1))
         output.setLength(0)
         return 0
+    }
+
+    override fun print(msg: Any?) {
+        msg?.let {
+            context.output.print(it.toString())
+        }
     }
 
 }
