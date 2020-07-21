@@ -1,36 +1,50 @@
-```
-ScriptWrapperCollection
-```
-
-Adapted script engines for [ScriptEngineCore](https://github.com/TIIEHenry/ScriptEngineCore)
 
 
-这是基于[ScriptEngineCore](https://github.com/TIIEHenry/ScriptEngineCore)的已经适配的脚本引擎
+## ScriptWrapperCollection
+
+这是基于[ScriptWrapper](https://github.com/TIIEHenry/ScriptWrapper)的已经适配的脚本引擎
 
 
-## Catelog(目录)
+## 目录
 |  Language  |  Name  |  Repo  | State  |
 |  ----  |  ----  | ----  |  ----  |
-|  javascript  | rhino |  [Rhino](https://github.com/mozilla/rhino)  |  Adapted  |
-|  javascript  | v8 |  [J2V8](https://github.com/eclipsesource/J2V8)  |  Adapted  |
-|  lua  | androlua+ |  [AndroLua_pro](https://github.com/nirenr/AndroLua_pro)  |  Adapted  |
+|  javascript  | rhino |  [Rhino](https://github.com/mozilla/rhino)  |  完全适配  |
+|  javascript  | v8 |  [J2V8](https://github.com/eclipsesource/J2V8)  |  基本适配  |
+|  lua  | androlua+ |  [AndroLua_pro](https://github.com/nirenr/AndroLua_pro)  |  完全适配  |
 
 
-## Usage(使用说明)
-They're all pretty much the same(使用上都大致相同)
+## 使用说明
+使用上都大致相同
 
-Create Script Runtime
+ScriptWrapper提供了ScriptEngineManager，可以通过ScriptEngineManager获取ScriptEngine，这里用Factory
+
+Create Engine
 ```kotlin
-RhinoEngine([ScriptContext<RhinoEngine>]).apply{
-    stringEvaler.xxx()
-    varBridge.putVar("activity", scriptContext.getContext())
-    //....
+val engine=RhinoEngineFactory.newScriptEngine().apply{
+    create()
+    //...
 }
 ```
 
+Use requirer
 
-Use Requirer:
 ```kotlin
-Requirer.addFindPath(App.srcDir)
-engine.requirer.require("main")
+engine.requirer.addFindPath([App.srcDir])
+engine.requirer.require("module.js")
 ```
+
+Use Bridge
+
+```kotlin
+val a=engine.varBridge.get("a")?.getString()
+val f=engine.varBridge.get("sum")?.call(1,2)?.getInteger()
+```
+
+Use Evaluator
+
+```kotlin
+val a=engine.stringEvaluator.eval("var a=1+2\nreturn \"ok\"","scriptName",0)?.getString()
+val a2=engine.fileEvaluator.eval(file)?.getString()
+val a3=engine.readerEvaluator.eval(FileReader(file))?.value
+```
+
