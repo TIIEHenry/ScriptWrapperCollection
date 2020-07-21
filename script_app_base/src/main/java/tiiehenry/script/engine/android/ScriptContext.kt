@@ -11,8 +11,8 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
-import tiiehenry.script.wrapper.IScriptEngine
-import tiiehenry.script.wrapper.engine.internal.Requirable
+import tiiehenry.script.wrapper.engine.IScriptEngine
+import tiiehenry.script.wrapper.framework.internal.Requirable
 import java.io.File
 import java.net.URLDecoder
 

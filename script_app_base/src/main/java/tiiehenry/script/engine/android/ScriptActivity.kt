@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import tiiehenry.script.wrapper.IScriptEngine
-import tiiehenry.script.wrapper.ScriptEngineManager
-import tiiehenry.script.wrapper.engine.internal.GlobalScriptContext
+import tiiehenry.script.wrapper.engine.IScriptEngine
+import tiiehenry.script.wrapper.engine.ScriptEngineManager
+import tiiehenry.script.wrapper.framework.internal.GlobalScriptContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,7 +31,7 @@ abstract class ScriptActivity<E : IScriptEngine<*, *>,A:Activity> : AppCompatAct
         super.onCreate(savedInstanceState)
         val factory = ScriptEngineManager.getEngineFactoryByName(engineName)
                 ?: return print("can't find factory")
-        engine = factory.newScriptEngine(GlobalScriptContext(System.`in`, System.out, System.err)) as E
+        engine = factory.newScriptEngine(GlobalScriptContext(System.`in`,ScriptOutputStream(this,printTextView), ScriptOutputStream(this,printTextView))) as E
         onCreateEngine()
         onEngineInited()
         onCreateAfterSuper(savedInstanceState)

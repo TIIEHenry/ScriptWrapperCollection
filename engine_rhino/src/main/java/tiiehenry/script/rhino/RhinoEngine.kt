@@ -24,10 +24,10 @@ class RhinoEngine(override val context: IScriptContext) : IScriptEngine<Any, Rhi
         , Printable,Requirable {
 
     override val varBridge = RhinoVarBridge(this)
-    override val funcBridge: IFuncBridge<RhinoType> = RhinoFuncBridge(this)
+    override val funcBridge = RhinoFuncBridge(this)
 
-    override val stringEvaluator: IStringEvaluator<Any, RhinoType> = RhinoStringEvaluator(this)
-    override val fileEvaluator: IFileEvaluator<Any, RhinoType> = RhinoFileEvaluator(this)
+    override val stringEvaluator = RhinoStringEvaluator(this)
+    override val fileEvaluator = RhinoFileEvaluator(this)
     override val readerEvaluator = RhinoReaderEvaluator(this)
 
     lateinit var runtime: RhinoRuntime

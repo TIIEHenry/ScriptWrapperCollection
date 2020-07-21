@@ -9,7 +9,7 @@ import tiiehenry.script.wrapper.framework.lang.IFunction
 
 class RhinoFuncBridge(private val engine: RhinoEngine, override val context: IScriptContext = engine.context) : IFuncBridge<RhinoType> {
 
-    override fun get(name: String): IFunction<RhinoType>? {
+    override fun get(name: String): RhinoFunction? {
         val func = engine.varBridge.get(name)?.getFunction() ?: return null
         return RhinoFunction(engine, func)
     }

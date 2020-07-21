@@ -10,7 +10,7 @@ import tiiehenry.script.wrapper.framework.lang.IVariable
 class RhinoStringEvaluator(private val engine: RhinoEngine, override val context: IScriptContext = engine.context) : IRhinoEvaluator<String>, IStringEvaluator<Any, RhinoType> {
 
 
-    override fun eval(input: String, scriptName: String?, lineNumber: Int): IVariable<Any, RhinoType>? {
+    override fun eval(input: String, scriptName: String?, lineNumber: Int): RhinoVariable? {
         val ret = engine.runtime.rhinoContext.evaluateString(engine.runtime, input, scriptName, lineNumber, null)
                 ?: return null
         return RhinoVariable(ret)
