@@ -3,8 +3,8 @@ package tiiehenry.script.v8.lang
 import com.eclipsesource.v8.V8Array
 import com.eclipsesource.v8.V8Function
 import tiiehenry.script.v8.V8Engine
-import tiiehenry.script.wrapper.engine.lang.IFunction
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.framework.lang.IFunction
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 
 class V8Func(private val engine: V8Engine, private val func: V8Function) : IFunction<V8Type> {

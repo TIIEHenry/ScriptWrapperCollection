@@ -5,8 +5,7 @@ import org.mozilla.javascript.Scriptable
 import tiiehenry.script.rhino.RhinoEngine
 import tiiehenry.script.rhino.lang.RhinoType
 import tiiehenry.script.rhino.lang.RhinoVariable
-import tiiehenry.script.wrapper.engine.bridge.IVarBridge
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.framework.bridge.IVarBridge
 
 class RhinoVarBridge(private val engine: RhinoEngine) : IVarBridge<Any, RhinoType> {
 

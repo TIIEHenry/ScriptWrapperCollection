@@ -4,10 +4,10 @@ import com.luajava.JavaFunction
 import com.luajava.LuaException
 import tiiehenry.script.androlua.ALuaEngine
 import tiiehenry.script.androlua.lang.ALuaType
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.internal.IPrinter
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.internal.IPrinter
 
-class ALuaPrinter(override val engine: ALuaEngine, override val context: IScriptContext=engine.context) :
+class ALuaPrinter(override val engine: ALuaEngine, override val context: IScriptContext =engine.context) :
         JavaFunction(engine.runtime.L), IPrinter<Any, ALuaType> {
 
     private val output = StringBuilder()

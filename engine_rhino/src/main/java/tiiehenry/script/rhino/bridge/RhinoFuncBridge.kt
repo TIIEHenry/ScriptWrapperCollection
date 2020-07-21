@@ -1,12 +1,11 @@
 package tiiehenry.script.rhino.bridge
 
-import org.mozilla.javascript.Function
 import tiiehenry.script.rhino.RhinoEngine
 import tiiehenry.script.rhino.lang.RhinoFunction
 import tiiehenry.script.rhino.lang.RhinoType
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.bridge.IFuncBridge
-import tiiehenry.script.wrapper.engine.lang.IFunction
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.bridge.IFuncBridge
+import tiiehenry.script.wrapper.framework.lang.IFunction
 
 class RhinoFuncBridge(private val engine: RhinoEngine, override val context: IScriptContext = engine.context) : IFuncBridge<RhinoType> {
 

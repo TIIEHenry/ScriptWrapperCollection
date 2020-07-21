@@ -12,16 +12,13 @@ import tiiehenry.script.rhino.internal.RhinoPrinter
 import tiiehenry.script.rhino.internal.RhinoRequirer
 import tiiehenry.script.rhino.internal.RhinoRuntime
 import tiiehenry.script.rhino.lang.RhinoType
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.IScriptEngine
-import tiiehenry.script.wrapper.engine.bridge.IFuncBridge
-import tiiehenry.script.wrapper.engine.evaluate.IFileEvaluator
-import tiiehenry.script.wrapper.engine.evaluate.IStringEvaluator
-import tiiehenry.script.wrapper.engine.internal.InputEvaluateTask
-import tiiehenry.script.wrapper.engine.internal.Printable
-import tiiehenry.script.wrapper.engine.internal.Requirable
-import java.io.BufferedReader
-import java.io.InputStreamReader
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.engine.IScriptEngine
+import tiiehenry.script.wrapper.framework.bridge.IFuncBridge
+import tiiehenry.script.wrapper.framework.evaluate.IFileEvaluator
+import tiiehenry.script.wrapper.framework.evaluate.IStringEvaluator
+import tiiehenry.script.wrapper.framework.internal.Printable
+import tiiehenry.script.wrapper.framework.internal.Requirable
 
 class RhinoEngine(override val context: IScriptContext) : IScriptEngine<Any, RhinoType>
         , Printable,Requirable {

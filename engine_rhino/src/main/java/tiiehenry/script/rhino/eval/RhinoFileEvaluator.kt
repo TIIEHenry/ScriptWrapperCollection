@@ -2,9 +2,9 @@ package tiiehenry.script.rhino.eval
 
 import tiiehenry.script.rhino.RhinoEngine
 import tiiehenry.script.rhino.lang.RhinoType
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.evaluate.IFileEvaluator
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.evaluate.IFileEvaluator
+import tiiehenry.script.wrapper.framework.lang.IVariable
 import java.io.File
 import java.io.FileReader
 

@@ -1,12 +1,11 @@
 package tiiehenry.script.androlua
 
 import tiiehenry.script.androlua.lang.ALuaType
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.IScriptEngine
-import tiiehenry.script.wrapper.IScriptEngineFactory
-import tiiehenry.script.wrapper.engine.internal.GlobalScriptContext
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.engine.IScriptEngineFactory
+import tiiehenry.script.wrapper.framework.internal.GlobalScriptContext
 
-class ALuaEngineFactory: IScriptEngineFactory<ALuaEngine,Any, ALuaType> {
+class ALuaEngineFactory: IScriptEngineFactory<ALuaEngine, Any, ALuaType> {
     override val engineName: String="Rhino"
     override val engineVersion: String="1.7.22"
     override val scriptNames: List<String> = listOf("Lua")

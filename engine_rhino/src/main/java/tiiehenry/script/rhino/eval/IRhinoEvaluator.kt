@@ -3,8 +3,8 @@ package tiiehenry.script.rhino.eval
 import org.mozilla.javascript.RhinoException
 import tiiehenry.script.rhino.lang.RhinoExceptionWrapper
 import tiiehenry.script.rhino.lang.RhinoType
-import tiiehenry.script.wrapper.engine.evaluate.IEvaluator
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.framework.evaluate.IEvaluator
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 interface IRhinoEvaluator<S> : IEvaluator<Any, RhinoType, S> {
 

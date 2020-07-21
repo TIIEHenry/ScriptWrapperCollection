@@ -3,9 +3,9 @@ package tiiehenry.script.androlua.eval
 import tiiehenry.script.androlua.ALuaEngine
 import tiiehenry.script.androlua.lang.ALuaType
 import tiiehenry.script.androlua.lang.ALuaVariable
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.evaluate.IStringEvaluator
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.evaluate.IStringEvaluator
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 class ALuaStringEvaluator(private val engine: ALuaEngine, override val context: IScriptContext = engine.context) : IALuaEvaluator<String>, IStringEvaluator<Any, ALuaType> {
 

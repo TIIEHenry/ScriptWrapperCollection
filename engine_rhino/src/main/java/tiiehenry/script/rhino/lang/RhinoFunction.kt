@@ -2,8 +2,8 @@ package tiiehenry.script.rhino.lang
 
 import org.mozilla.javascript.Function
 import tiiehenry.script.rhino.RhinoEngine
-import tiiehenry.script.wrapper.engine.lang.IFunction
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.framework.lang.IFunction
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 class RhinoFunction(private val engine: RhinoEngine, private val func: Function) : IFunction<RhinoType> {
     override fun call(vararg args: Any): IVariable<*, RhinoType>? {

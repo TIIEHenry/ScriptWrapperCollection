@@ -5,9 +5,9 @@ import com.luajava.LuaException
 import tiiehenry.script.androlua.ALuaEngine
 import tiiehenry.script.androlua.lang.ALuaType
 import tiiehenry.script.androlua.lang.ALuaFunction
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.bridge.IFuncBridge
-import tiiehenry.script.wrapper.engine.lang.IFunction
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.bridge.IFuncBridge
+import tiiehenry.script.wrapper.framework.lang.IFunction
 
 class ALuaFuncBridge(private val engine: ALuaEngine, override val context: IScriptContext = engine.context) : IFuncBridge<ALuaType> {
 

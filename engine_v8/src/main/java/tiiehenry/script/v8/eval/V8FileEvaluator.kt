@@ -2,9 +2,9 @@ package tiiehenry.script.v8.eval
 
 import tiiehenry.script.v8.V8Engine
 import tiiehenry.script.v8.lang.V8Type
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.evaluate.IFileEvaluator
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.evaluate.IFileEvaluator
+import tiiehenry.script.wrapper.framework.lang.IVariable
 import java.io.File
 import java.io.FileReader
 

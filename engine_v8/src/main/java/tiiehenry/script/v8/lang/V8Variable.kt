@@ -1,7 +1,7 @@
 package tiiehenry.script.v8.lang
 
 import com.eclipsesource.v8.*
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 class V8Variable(override val value: Any) : IVariable<Any, V8Type> {
     override fun getType(): V8Type? {

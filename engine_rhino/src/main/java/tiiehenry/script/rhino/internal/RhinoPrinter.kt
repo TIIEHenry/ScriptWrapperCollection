@@ -5,8 +5,8 @@ import org.mozilla.javascript.annotations.JSFunction
 import tiiehenry.script.rhino.RhinoEngine
 import tiiehenry.script.rhino.lang.RhinoType
 import tiiehenry.script.rhino.lang.RhinoVariable
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.internal.IPrinter
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.internal.IPrinter
 
 class RhinoPrinter(override val engine: RhinoEngine, override val context: IScriptContext = engine.context) : IPrinter<Any, RhinoType> {
     @JSFunction

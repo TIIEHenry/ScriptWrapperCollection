@@ -2,8 +2,8 @@ package tiiehenry.script.androlua.internal
 
 import tiiehenry.script.androlua.ALuaEngine
 import tiiehenry.script.androlua.lang.ALuaType
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.internal.IRequirer
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.internal.IRequirer
 
 class ALuaRequirer(override val engine: ALuaEngine, override val context: IScriptContext =engine.context):IRequirer<Any, ALuaType> {
 

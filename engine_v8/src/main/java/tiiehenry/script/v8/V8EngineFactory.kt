@@ -1,12 +1,11 @@
 package tiiehenry.script.v8
 
 import tiiehenry.script.v8.lang.V8Type
-import tiiehenry.script.wrapper.engine.internal.GlobalScriptContext
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.IScriptEngine
-import tiiehenry.script.wrapper.IScriptEngineFactory
+import tiiehenry.script.wrapper.framework.internal.GlobalScriptContext
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.engine.IScriptEngineFactory
 
-class V8EngineFactory: IScriptEngineFactory<V8Engine,Any, V8Type> {
+class V8EngineFactory: IScriptEngineFactory<V8Engine, Any, V8Type> {
     override val engineName: String="V8"
     override val engineVersion: String="5.0.103"
     override val scriptNames: List<String> = listOf("JavaScript","javascript","JS","Js","js")

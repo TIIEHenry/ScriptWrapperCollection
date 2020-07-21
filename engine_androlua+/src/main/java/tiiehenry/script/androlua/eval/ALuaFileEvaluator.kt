@@ -3,9 +3,9 @@ package tiiehenry.script.androlua.eval
 import tiiehenry.script.androlua.ALuaEngine
 import tiiehenry.script.androlua.lang.ALuaType
 import tiiehenry.script.androlua.lang.ALuaVariable
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.evaluate.IFileEvaluator
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.evaluate.IFileEvaluator
+import tiiehenry.script.wrapper.framework.lang.IVariable
 import java.io.File
 
 class ALuaFileEvaluator(private val engine: ALuaEngine, override val context: IScriptContext = engine.context) : IALuaEvaluator<File>, IFileEvaluator<Any, ALuaType> {

@@ -3,9 +3,9 @@ package tiiehenry.script.rhino.eval
 import tiiehenry.script.rhino.RhinoEngine
 import tiiehenry.script.rhino.lang.RhinoType
 import tiiehenry.script.rhino.lang.RhinoVariable
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.evaluate.IStringEvaluator
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.evaluate.IStringEvaluator
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 class RhinoStringEvaluator(private val engine: RhinoEngine, override val context: IScriptContext = engine.context) : IRhinoEvaluator<String>, IStringEvaluator<Any, RhinoType> {
 

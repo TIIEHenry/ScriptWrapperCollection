@@ -3,8 +3,8 @@ package tiiehenry.script.androlua.bridge
 import tiiehenry.script.androlua.ALuaEngine
 import tiiehenry.script.androlua.lang.ALuaType
 import tiiehenry.script.androlua.lang.ALuaVariable
-import tiiehenry.script.wrapper.engine.bridge.IVarBridge
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.framework.bridge.IVarBridge
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 
 class ALuaVarBridge(private val engine: ALuaEngine) : IVarBridge<Any, ALuaType> {

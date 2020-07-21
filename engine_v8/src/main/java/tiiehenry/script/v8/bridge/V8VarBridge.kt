@@ -5,8 +5,8 @@ import com.eclipsesource.v8.V8Value
 import tiiehenry.script.v8.V8Engine
 import tiiehenry.script.v8.lang.V8Type
 import tiiehenry.script.v8.lang.V8LazyVariable
-import tiiehenry.script.wrapper.engine.bridge.IVarBridge
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.framework.bridge.IVarBridge
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 class V8VarBridge(private val engine: V8Engine) : IVarBridge<Any, V8Type> {
     override fun get(name: String): IVariable<Any, V8Type>? {

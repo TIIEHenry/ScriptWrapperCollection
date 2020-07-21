@@ -2,9 +2,9 @@ package tiiehenry.script.v8.eval
 
 import tiiehenry.script.v8.V8Engine
 import tiiehenry.script.v8.lang.V8Type
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.evaluate.IReaderEvaluator
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.evaluate.IReaderEvaluator
+import tiiehenry.script.wrapper.framework.lang.IVariable
 import java.io.Reader
 
 class V8ReaderEvaluator(private val engine: V8Engine, override val context: IScriptContext = engine.context)

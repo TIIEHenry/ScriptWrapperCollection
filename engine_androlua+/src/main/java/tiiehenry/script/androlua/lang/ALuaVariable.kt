@@ -1,6 +1,6 @@
 package tiiehenry.script.androlua.lang
 
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 class ALuaVariable(override val value: Any) : IVariable<Any, ALuaType> {
     override fun getType(): ALuaType? {

@@ -2,10 +2,10 @@ package tiiehenry.script.v8.internal
 
 import tiiehenry.script.v8.V8Engine
 import tiiehenry.script.v8.lang.V8Type
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.internal.IRequirer
-import tiiehenry.script.wrapper.engine.lang.IFunction
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.internal.IRequirer
+import tiiehenry.script.wrapper.framework.lang.IFunction
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 //require 返回保存状态，load 每次都加载
 class V8Requirer(override val engine: V8Engine, override val context: IScriptContext = engine.context) : IRequirer<Any, V8Type> {

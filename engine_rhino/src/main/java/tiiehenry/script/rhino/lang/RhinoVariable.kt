@@ -3,7 +3,7 @@ package tiiehenry.script.rhino.lang
 import org.mozilla.javascript.Context
 import org.mozilla.javascript.Function
 import org.mozilla.javascript.ScriptableObject
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 class RhinoVariable(override val value: Any) : IVariable<Any, RhinoType> {
     override fun getType(): RhinoType? {

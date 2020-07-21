@@ -4,9 +4,8 @@ import org.mozilla.javascript.ScriptableObject
 import org.mozilla.javascript.annotations.JSFunction
 import tiiehenry.script.rhino.RhinoEngine
 import tiiehenry.script.rhino.lang.RhinoType
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.internal.IRequirer
-import java.io.File
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.internal.IRequirer
 
 
 //require 返回保存状态，load 每次都加载

@@ -3,10 +3,10 @@ package tiiehenry.script.v8.internal
 import tiiehenry.script.v8.V8Engine
 import tiiehenry.script.v8.lang.V8Type
 import tiiehenry.script.v8.lang.V8Variable
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.engine.lang.IFunction
-import tiiehenry.script.wrapper.engine.internal.IPrinter
-import tiiehenry.script.wrapper.engine.lang.IVariable
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.framework.lang.IFunction
+import tiiehenry.script.wrapper.framework.internal.IPrinter
+import tiiehenry.script.wrapper.framework.lang.IVariable
 
 class V8Printer(override val engine: V8Engine, override val context: IScriptContext = engine.context) : IPrinter<Any, V8Type> {
 

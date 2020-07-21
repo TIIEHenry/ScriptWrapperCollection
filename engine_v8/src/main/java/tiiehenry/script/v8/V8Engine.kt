@@ -9,11 +9,11 @@ import tiiehenry.script.v8.eval.V8StringEvaluator
 import tiiehenry.script.v8.internal.V8Printer
 import tiiehenry.script.v8.internal.V8Requirer
 import tiiehenry.script.v8.lang.V8Type
-import tiiehenry.script.wrapper.IScriptContext
-import tiiehenry.script.wrapper.IScriptEngine
-import tiiehenry.script.wrapper.engine.bridge.IFuncBridge
-import tiiehenry.script.wrapper.engine.evaluate.IFileEvaluator
-import tiiehenry.script.wrapper.engine.evaluate.IStringEvaluator
+import tiiehenry.script.wrapper.engine.IScriptContext
+import tiiehenry.script.wrapper.engine.IScriptEngine
+import tiiehenry.script.wrapper.framework.bridge.IFuncBridge
+import tiiehenry.script.wrapper.framework.evaluate.IFileEvaluator
+import tiiehenry.script.wrapper.framework.evaluate.IStringEvaluator
 
 class V8Engine(override val context: IScriptContext) : IScriptEngine<Any, V8Type> {
     override val funcBridge: IFuncBridge<V8Type> = V8FuncBridge(this)
