@@ -21,20 +21,6 @@ open class RhinoRequirer(override val engine: RhinoEngine, override val context:
         return "$name.js"
     }
 
-    fun registerRuntime() {
-        engine.runtime.defineFunctionProperties(arrayOf(
-                "require", "load"
-        ), RhinoRequirer::class.java, ScriptableObject.PERMANENT)
-    }
 
-    @JSFunction
-    override fun require(name: String): Any? {
-        return super.require(name)
-    }
-
-    @JSFunction
-    override fun load(name: String): Any? {
-        return super.load(name)
-    }
 
 }

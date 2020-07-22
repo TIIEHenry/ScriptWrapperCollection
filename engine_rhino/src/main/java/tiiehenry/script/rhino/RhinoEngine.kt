@@ -43,10 +43,8 @@ class RhinoEngine(override val context: IScriptContext) : IScriptEngine<Any, Rhi
 
 
         printer = RhinoPrinter(this)
-        printer.registerRuntime()
 
         requirer = RhinoRequirer(this)
-        requirer.registerRuntime()
 
         RhinoInputEvaluateTask(context.input,this).start()
     }

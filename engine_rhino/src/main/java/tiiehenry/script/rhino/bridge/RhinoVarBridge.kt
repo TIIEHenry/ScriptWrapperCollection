@@ -27,7 +27,7 @@ class RhinoVarBridge(private val engine: RhinoEngine) : IVarBridge<Any, RhinoTyp
     }
 
     fun javaToJS(value: String, f: (Any?) -> Unit) {
-        f.invoke(Context.javaToJS(get(value), engine.runtime))
+        f.invoke(Context.javaToJS(get(value),engine.runtime))
     }
 
 
@@ -39,7 +39,7 @@ class RhinoVarBridge(private val engine: RhinoEngine) : IVarBridge<Any, RhinoTyp
     }
 
     override fun get(name: String): RhinoVariable? {
-        val v = engine.runtime.get(name) ?: return null
+        val v = engine.runtime.get(name,engine.runtime) ?: return null
         return RhinoVariable(v)
     }
 

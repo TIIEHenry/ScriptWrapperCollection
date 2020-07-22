@@ -8,23 +8,12 @@ import tiiehenry.script.rhino.lang.RhinoVariable
 import tiiehenry.script.wrapper.engine.IScriptContext
 import tiiehenry.script.wrapper.framework.internal.IPrinter
 
-class RhinoPrinter(override val engine: RhinoEngine, override val context: IScriptContext = engine.context) : IPrinter<Any, RhinoType> {
-    @JSFunction
+class RhinoPrinter(override val engine: RhinoEngine, override val context: IScriptContext = engine.context) :IPrinter<Any, RhinoType> {
+
     override fun print(msg: Any?) {
         msg?.let {
             context.output.print(RhinoVariable(it).getString() ?: "null")
         }
     }
 
-
-    @JSFunction
-    override fun println(msg: Any?) {
-        super.println(msg)
-    }
-
-    fun registerRuntime() {
-        engine.runtime.defineFunctionProperties(arrayOf(
-                "print", "println"
-        ), RhinoPrinter::class.java, ScriptableObject.PERMANENT)
-    }
 }
