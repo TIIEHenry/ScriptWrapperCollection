@@ -1,9 +1,10 @@
-rootProject.name = "ScriptEngine"
+rootProject.name = "ScriptWrapperCollection"
 
 include ':engine_v8',
         ':engine_rhino',
         ':engine_androlua+'
 
+includeBuild '../ScriptWrapper'
 def flatMap = [
         "ScriptWrapper": [
                 'core_library',
@@ -19,6 +20,6 @@ def includeFlatMap(Map<String, List<String>> map) {
     }
 }
 
-includeFlatMap(flatMap)
+//includeFlatMap(flatMap)
 
 

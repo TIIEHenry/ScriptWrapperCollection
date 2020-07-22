@@ -1,11 +1,15 @@
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
 
+group "tiiehenry.script.engines"
+version "1.0"
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation project(':ScriptWrapper:core_library')
+    implementation "tiiehenry.script.wrapper:core_library:1.0"
+//    implementation project(':ScriptWrapper:core_library')
 }
 
 sourceCompatibility = "1.7"
