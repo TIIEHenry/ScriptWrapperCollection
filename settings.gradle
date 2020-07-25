@@ -2,24 +2,11 @@ rootProject.name = "ScriptWrapperCollection"
 
 include ':engine_v8',
         ':engine_rhino',
-        ':engine_androlua+'
+        ':engine_androlua_pro'
 
 includeBuild '../ScriptWrapper'
-def flatMap = [
-        "ScriptWrapper": [
-                'core_library',
-        ],
-]
 
-def includeFlatMap(Map<String, List<String>> map) {
-    map.each {
-        includeFlat(it.key)
-        it.value.each { m ->
-            include ':' + it.key + ':' + m
-        }
-    }
-}
-
-//includeFlatMap(flatMap)
-
-
+//rootProject.children.each {
+//    /**设置构建脚本文件名*/
+//    it.buildFileName ="wrapper-col-"+ it.name + '.gradle'
+//}

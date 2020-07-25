@@ -9,7 +9,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     implementation "tiiehenry.script.wrapper:core_library:1.0"
-//    implementation project(':ScriptWrapper:core_library')
 }
 
 sourceCompatibility = "1.7"
