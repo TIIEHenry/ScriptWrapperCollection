@@ -8,7 +8,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    implementation "tiiehenry.script.wrapper:core_library:1.0"
+    implementation "tiiehenry.script.wrapper:core_library:1.1"
 }
 
 sourceCompatibility = "1.7"

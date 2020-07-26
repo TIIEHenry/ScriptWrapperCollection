@@ -25,5 +25,5 @@ dependencies {
 
     implementation 'com.eclipsesource.j2v8:j2v8:5.0.103@aar'
 
-    implementation "tiiehenry.script.wrapper:core_library:1.0"
+    implementation "tiiehenry.script.wrapper:core_library:1.1"
 }

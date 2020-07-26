@@ -25,8 +25,8 @@ class ALuaEngine(override val context: IScriptContext) : IScriptEngine<Any, ALua
     override val varBridge = ALuaVarBridge(this)
     override val funcBridge: IFuncBridge<ALuaType> = ALuaFuncBridge(this)
 
-    override val stringEvaluator: IStringEvaluator<Any, ALuaType> = ALuaStringEvaluator(this)
-    override val fileEvaluator: IFileEvaluator<Any, ALuaType> = ALuaFileEvaluator(this)
+    override val stringEvaluator = ALuaStringEvaluator(this)
+    override val fileEvaluator = ALuaFileEvaluator(this)
     override val readerEvaluator = ALuaReaderEvaluator(this)
 
     override lateinit var printer: ALuaPrinter
@@ -59,6 +59,7 @@ class ALuaEngine(override val context: IScriptContext) : IScriptEngine<Any, ALua
 
     override fun resume() {
     }
+
     override fun destroy() {
         System.gc()
         runtime.L.gc(LuaState.LUA_GCCOLLECT, 1)
