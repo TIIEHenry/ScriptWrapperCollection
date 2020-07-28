@@ -37,7 +37,7 @@ Use Bridge
 
 ```kotlin
 val a=engine.varBridge.get("a")?.getString()
-val f=engine.varBridge.get("sum")?.call(1,2)?.getInteger()
+val f=engine.funcBridge.get("sum")?.call(1,2)?.getInteger()
 ```
 
 Use Evaluator
