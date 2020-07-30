@@ -39,5 +39,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.appcompat:appcompat:1.1.0"
 
-    implementation "tiiehenry.script.wrapper:core_library:1.1"
+    implementation "tiiehenry.script.wrapper:core_library:+"
 }
