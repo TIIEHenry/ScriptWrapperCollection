@@ -12,6 +12,6 @@ class V8FileEvaluator(private val engine: V8Engine, override val context: IScrip
     : IV8Evaluator<File>, IFileEvaluator<Any, V8Type> {
 
     override fun eval(input: File, scriptName: String?, lineNumber: Int): IVariable<Any, V8Type>? {
-        return engine.readerEvaluator.eval(FileReader(input), scriptName, lineNumber)
+        FileReader(input).use { return engine.readerEvaluator.eval(it, scriptName, lineNumber) }
     }
 }

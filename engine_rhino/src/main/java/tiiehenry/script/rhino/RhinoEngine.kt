@@ -46,7 +46,7 @@ class RhinoEngine(override val context: IScriptContext) : IScriptEngine<Any, Rhi
 
         requirer = RhinoRequirer(this)
 
-        RhinoInputEvaluateTask(context.input,this).start()
+//        RhinoInputEvaluateTask(context.input,this).start()
     }
 
     override fun pause() {

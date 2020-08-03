@@ -5,7 +5,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 group "tiiehenry.script.engines"
-version "1.2.2"
+version "1.2.4"
 
 android {
     compileSdkVersion 29
