@@ -8,7 +8,7 @@ import tiiehenry.script.wrapper.framework.lang.IVariable
 
 
 class V8Func(private val engine: V8Engine, private val func: V8Function) : IFunction<V8Type> {
-    override fun call(vararg args: Any): IVariable<*, V8Type>? {
+    override fun call(vararg args: Any?): IVariable<*, V8Type>? {
         val parameters = V8Array(engine.runtime)
         for (arg in args) {
             parameters.push(arg)

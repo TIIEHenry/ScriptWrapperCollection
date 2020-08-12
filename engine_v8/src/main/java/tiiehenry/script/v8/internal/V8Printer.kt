@@ -18,7 +18,7 @@ class V8Printer(override val engine: V8Engine, override val context: IScriptCont
 
     fun registerRuntime() {
         engine.funcBridge.set("print",object :IFunction<V8Type>{
-            override fun call(vararg args: Any): IVariable<*, V8Type>? {
+            override fun call(vararg args: Any?): IVariable<*, V8Type>? {
                 if (args.isNotEmpty()) {
                     print(args.first())
                 }else{
@@ -28,7 +28,7 @@ class V8Printer(override val engine: V8Engine, override val context: IScriptCont
             }
         })
         engine.funcBridge.set("println",object :IFunction<V8Type>{
-            override fun call(vararg args: Any): IVariable<*, V8Type>? {
+            override fun call(vararg args: Any?): IVariable<*, V8Type>? {
                 if (args.isNotEmpty()) {
                     print(args.first())
                 }else{

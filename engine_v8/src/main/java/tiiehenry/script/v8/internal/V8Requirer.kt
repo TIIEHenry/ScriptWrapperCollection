@@ -22,7 +22,7 @@ class V8Requirer(override val engine: V8Engine, override val context: IScriptCon
 
     fun registerRuntime() {
         engine.funcBridge.set("require", object : IFunction<V8Type> {
-            override fun call(vararg args: Any): IVariable<*, V8Type>? {
+            override fun call(vararg args: Any?): IVariable<*, V8Type>? {
                 if (args.isNotEmpty()) {
                     require(args.first().toString())
                 } else {
@@ -32,7 +32,7 @@ class V8Requirer(override val engine: V8Engine, override val context: IScriptCon
             }
         })
         engine.funcBridge.set("load", object : IFunction<V8Type> {
-            override fun call(vararg args: Any): IVariable<*, V8Type>? {
+            override fun call(vararg args: Any?): IVariable<*, V8Type>? {
                 if (args.isNotEmpty()) {
                     load(args.first().toString())
                 } else {

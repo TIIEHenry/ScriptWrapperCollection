@@ -5,7 +5,7 @@ import tiiehenry.script.wrapper.framework.lang.IFunction
 import tiiehenry.script.wrapper.framework.lang.IVariable
 
 class ALuaFunction(private val runtime: ALuaRuntime, private val name: String) : IFunction<ALuaType> {
-    override fun call(vararg args: Any): IVariable<*, ALuaType>? {
+    override fun call(vararg args: Any?): IVariable<*, ALuaType>? {
         val L = runtime.L
         synchronized(L) {
             L.top = 0

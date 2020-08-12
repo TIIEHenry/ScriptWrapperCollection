@@ -6,7 +6,7 @@ import tiiehenry.script.wrapper.framework.lang.IFunction
 import tiiehenry.script.wrapper.framework.lang.IVariable
 
 class RhinoFunction(private val engine: RhinoEngine, private val func: Function) : IFunction<RhinoType> {
-    override fun call(vararg args: Any): IVariable<*, RhinoType>? {
+    override fun call(vararg args: Any?): IVariable<*, RhinoType>? {
         val newArgs = arrayOfNulls<Any?>(args.size)
         for (i in args.indices) {
             newArgs[i] = engine.varBridge.javaToJS(args[i])
