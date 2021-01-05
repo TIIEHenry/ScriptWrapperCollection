@@ -27,3 +27,5 @@ dependencies {
 
     implementation "tiiehenry.script.wrapper:core_library:+"
 }
+
+apply from: "../properties/maven-publish.gradle"
